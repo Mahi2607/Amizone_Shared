@@ -214,7 +214,7 @@ $getcol = mysqli_fetch_fields($querry);
   </thead>
   <tbody>
     
-    <form action="querry.php" method="POST">
+    <form action="" method="get">
  
     <?php
             
@@ -224,8 +224,7 @@ $getcol = mysqli_fetch_fields($querry);
    
         ?> 
           <tr class="text-center">
-        <td>
-                 <input type="text" class="form-control" readonly name="course_id_update"  placeholder="" id=""  value="<?php echo $row["COURSE_DETAILS_ID"] ?>"> </td>
+        <td><input type="text" class="form-control" readonly name="course_id_update"  placeholder="" id=""  value="<?php echo $row["COURSE_DETAILS_ID"] ?>"> </td>
         <td> <input type="text"  class="form-control" name="course_code_update" id="" value="<?php echo $row["COURSE_CODE"] ?>">  </td>
         <td> <input type="text"  class="form-control" name="course_name_update" id="" value="<?php echo $row["COURSE_NAME"] ?>"> </td>
         <td> <input type="text"  class="form-control" name="course_credit_update" id="" value="<?php echo $row["CREDIT"] ?> "></td>
@@ -299,8 +298,12 @@ $getcol = mysqli_fetch_fields($querry);
         
 
         <td>
-            <a href="querry.php?<?php echo $row["COURSE_DETAILS_ID"] ?>"  class="btn btn-warning disabled">Update</a>
-            <!-- <input type="submit" value="<?php echo $row["COURSE_DETAILS_ID"] ?>" name="update_course_details" class="btn btn-warning form-control"> -->
+          <?php 
+           
+           
+           ?>
+            <a href="query.php?course_id=<?php echo $row["COURSE_DETAILS_ID"]?>"  class="btn btn-warning">Update</a>
+            <!-- <input type="submit" value="Update" name="update_course_details" class="btn btn-warning form-control"> -->
            
         <td><a href="#" class="btn btn-danger disabled">Delete</a></td>
       
@@ -389,38 +392,38 @@ if(isset($_POST["add_new_course"]))
 if(isset($_POST["update_course_details"]))
 {
     $course_id_update = $_POST["course_id_update"];
-    echo $course_id_update."M";
-    $course_code_update = $_POST["course_code_update"];
-   // echo $course_code_update."C";
-    $course_name_update = $_POST["course_name_update"];
-   // echo $course_name_update;
-    $course_credit_update = $_POST["course_credit_update"];
-    $course_theory_update = $_POST["course_theory_update"];
-    $course_practical_update = $_POST["course_practical_update"];
-    $course_tutorial_update = $_POST["course_tutorial_update"];
-    $course_project_update = $_POST["course_project_update"];
-    $course_c_evaluation_update = $_POST["course_c_evaluation_update"];
-    $course_attendance_update = $_POST["course_attendance_update"];
-    $course_total_internal_update = $_POST["course_total_internal_update"];
-    $course_total_external_update = $_POST["course_total_external_update"];
-    $course_outcome_update = $_POST["course_outcome_update"];
-    $course_objective_update = $_POST["course_objective_update"];
+    echo $course_id_update;
+  //   $course_code_update = $_POST["course_code_update"];
+  //  // echo $course_code_update."C";
+  //   $course_name_update = $_POST["course_name_update"];
+  //  // echo $course_name_update;
+  //   $course_credit_update = $_POST["course_credit_update"];
+  //   $course_theory_update = $_POST["course_theory_update"];
+  //   $course_practical_update = $_POST["course_practical_update"];
+  //   $course_tutorial_update = $_POST["course_tutorial_update"];
+  //   $course_project_update = $_POST["course_project_update"];
+  //   $course_c_evaluation_update = $_POST["course_c_evaluation_update"];
+  //   $course_attendance_update = $_POST["course_attendance_update"];
+  //   $course_total_internal_update = $_POST["course_total_internal_update"];
+  //   $course_total_external_update = $_POST["course_total_external_update"];
+  //   $course_outcome_update = $_POST["course_outcome_update"];
+  //   $course_objective_update = $_POST["course_objective_update"];
 
-    if(mysqli_query($conn,"UPDATE `course_details` SET `COURSE_CODE`='$course_code_update',`COURSE_NAME`='$course_name_update',`CREDIT`='$course_credit_update',`THEORY`='$course_theory_update',`PRACTICAL`='$course_practical_update',`TUTORIAL`='$course_tutorial_update',`PROJECT`='$course_project_update',`CONTINUOUS_EVALUATION`='$course_c_evaluation_update',`ATTENDANCE`='$course_attendance_update',`TOTAL_INTERNAL`='$course_total_internal_update',`TOTAL_EXTERNAL`='$course_total_external_update',`COURSE_OUTCOME`='$course_outcome_update',`COURSE_OBJECTIVE`='$course_objective_update' WHERE COURSE_DETAILS_ID = $course_id_update"))
-    {
-            echo "Data Updated Successfully!!!";
-            ?> 
-                <!-- <script>
+    // if(mysqli_query($conn,"UPDATE `course_details` SET `COURSE_CODE`='$course_code_update',`COURSE_NAME`='$course_name_update',`CREDIT`='$course_credit_update',`THEORY`='$course_theory_update',`PRACTICAL`='$course_practical_update',`TUTORIAL`='$course_tutorial_update',`PROJECT`='$course_project_update',`CONTINUOUS_EVALUATION`='$course_c_evaluation_update',`ATTENDANCE`='$course_attendance_update',`TOTAL_INTERNAL`='$course_total_internal_update',`TOTAL_EXTERNAL`='$course_total_external_update',`COURSE_OUTCOME`='$course_outcome_update',`COURSE_OBJECTIVE`='$course_objective_update' WHERE COURSE_DETAILS_ID = $course_id_update"))
+    // {
+    //         echo "Data Updated Successfully!!!";
+    //         ?> 
+    //             <!-- <script>
 
-                       window.location = "course_details.php";
-                </script> -->
-            <?php
+    //                    window.location = "course_details.php";
+    //             </script> -->
+    //         <?php
 
-    }
-    else
-    {
-        echo "Data Not Updated!!!!";
-    }
+    // }
+    // else
+    // {
+    //     echo "Data Not Updated!!!!";
+    // }
 
 
 
