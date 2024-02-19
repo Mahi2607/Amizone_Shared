@@ -2,7 +2,7 @@
 // Establish a database connection (replace these variables with your actual database credentials)
 $servername = "localhost";
 $username = "root";
-$password = "";
+$password = "password";
 $dbname = "asco";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
