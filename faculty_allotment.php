@@ -6,9 +6,9 @@ include "header.php";
 
 
 $user_details_details = mysqli_query($conn,"SELECT * FROM `user_details`");
-$course_configuration_details = mysqli_query($conn,"SELECT course_configuration.CONFIG_ID,course_details.COURSE_CODE,course_details.COURSE_NAME FROM course_configuration INNER JOIN course_details ON course_details.COURSE_DETAILS_ID = course_configuration.COURSE_DETAILS_ID;");
+$course_configuration_details = mysqli_query($conn,"SELECT course_configuration.CONFIG_ID,program_details.PROGRAM_NAME,course_details.COURSE_CODE,course_details.COURSE_NAME FROM course_configuration INNER JOIN course_details ON course_details.COURSE_DETAILS_ID = course_configuration.COURSE_DETAILS_ID INNER JOIN program_details on course_configuration.PROGRAM_ID = program_details.PROGRAM_ID;");
 
-$faculty_details = mysqli_query($conn,"SELECT faculty_allotment.F_ALLOTMENT_ID,institute_details.INSTITUTE_NAME,program_details.PROGRAM_NAME,user_details.USER_NAME,user_details.EMPLOYEE_CODE,course_details.COURSE_CODE,course_details.COURSE_NAME,course_details.CREDIT,course_configuration.SEMESTER FROM faculty_allotment LEFT JOIN user_details on faculty_allotment.USER_ID = user_details.USER_ID INNER JOIN course_configuration on faculty_allotment.CONFIG_ID = course_configuration.CONFIG_ID INNER JOIN course_details on course_configuration.COURSE_DETAILS_ID = course_details.COURSE_DETAILS_ID INNER JOIN institute_details on course_configuration.INSTITUDE_ID = institute_details.INSTITUTE_ID INNER JOIN program_details on course_configuration.PROGRAM_ID = program_details.PROGRAM_ID ORDER BY `course_configuration`.`SEMESTER` ASC;");
+$faculty_details = mysqli_query($conn,"SELECT faculty_allotment.F_ALLOTMENT_ID,institute_details.INSTITUTE_NAME,program_details.PROGRAM_NAME,user_details.USER_NAME,user_details.EMPLOYEE_CODE,course_details.COURSE_CODE,course_details.COURSE_NAME,course_configuration.COURSE_TYPE,course_details.CREDIT,course_configuration.SEMESTER FROM faculty_allotment LEFT JOIN user_details on faculty_allotment.USER_ID = user_details.USER_ID INNER JOIN course_configuration on faculty_allotment.CONFIG_ID = course_configuration.CONFIG_ID INNER JOIN course_details on course_configuration.COURSE_DETAILS_ID = course_details.COURSE_DETAILS_ID INNER JOIN institute_details on course_configuration.INSTITUDE_ID = institute_details.INSTITUTE_ID INNER JOIN program_details on course_configuration.PROGRAM_ID = program_details.PROGRAM_ID ORDER BY `course_details`.`COURSE_CODE` ASC;");
 $faculty_details_col = mysqli_fetch_fields($faculty_details);
 
 ?>
@@ -33,7 +33,7 @@ $faculty_details_col = mysqli_fetch_fields($faculty_details);
 
 
         <label for="faculty_name" class="form-label">Select Faculty</label>
-                <input class="form-control" list="facuty_datalistOptions" name="selected_faculty" id="faculty_name" placeholder="Type to search...">
+                <input class="form-control" list="facuty_datalistOptions" required name="selected_faculty" id="faculty_name" placeholder="Type to search...">
                 <datalist id="facuty_datalistOptions">
                     <option value="Select Faculty">
                     <?php
@@ -61,7 +61,7 @@ $faculty_details_col = mysqli_fetch_fields($faculty_details);
 
 
             <label for="selected_course" class="form-label">Select Configured Course</label>
-                <input class="form-control" list="course_datalistOptions" name="selected_course" id="course_name" placeholder="Type to search...">
+                <input class="form-control" list="course_datalistOptions" name="selected_course" required id="course_name" placeholder="Type to search...">
                 <datalist id="course_datalistOptions">
                     <option value="Select Configured Course">
                     <?php
@@ -73,7 +73,7 @@ $faculty_details_col = mysqli_fetch_fields($faculty_details);
            
                 ?> 
                 
-                <option value="<?php echo $course_configuration_details_row["CONFIG_ID"];?>" > <?php echo $course_configuration_details_row["COURSE_NAME"]." [". $course_configuration_details_row["COURSE_CODE"]."]";?></option>
+                <option value="<?php echo $course_configuration_details_row["CONFIG_ID"];?>" > <?php echo $course_configuration_details_row["COURSE_NAME"]." [". $course_configuration_details_row["COURSE_CODE"]."]"." [". $course_configuration_details_row["PROGRAM_NAME"]."]";?></option>
                 
             
                 <?php
@@ -85,7 +85,7 @@ $faculty_details_col = mysqli_fetch_fields($faculty_details);
 
 
      <br>
-            <input type="submit" value="Save" name="fallot" class="btn btn-primary">
+            <input type="submit" value="Allot Faculty" name="fallot" class="btn btn-primary">
 
         </form>
 
@@ -143,6 +143,7 @@ $faculty_details_col = mysqli_fetch_fields($faculty_details);
         <td> <?php echo $row["EMPLOYEE_CODE"] ?> </td>
         <td> <?php echo $row["COURSE_CODE"] ?> </td>
         <td> <?php echo $row["COURSE_NAME"] ?> </td>
+        <td> <?php echo $row["COURSE_TYPE"]?> </td>
         <td class="text-center"> <?php echo $row["CREDIT"] ?> </td>
         <td class="text-center"> <?php echo $row["SEMESTER"] ?> </td>
       
@@ -161,6 +162,7 @@ $faculty_details_col = mysqli_fetch_fields($faculty_details);
               <td> <?php echo $row["EMPLOYEE_CODE"] ?> </td>
               <td> <?php echo $row["COURSE_CODE"] ?> </td>
               <td> <?php echo $row["COURSE_NAME"] ?> </td>
+              <td> <?php echo $row["COURSE_TYPE"]?> </td>
               <td class="text-center"> <?php echo $row["CREDIT"] ?> </td>
               <td class="text-center"> <?php echo $row["SEMESTER"] ?> </td>
             
@@ -179,6 +181,7 @@ $faculty_details_col = mysqli_fetch_fields($faculty_details);
           <td> <?php echo $row["EMPLOYEE_CODE"] ?> </td>
           <td> <?php echo $row["COURSE_CODE"] ?> </td>
           <td> <?php echo $row["COURSE_NAME"] ?> </td>
+          <td> <?php echo $row["COURSE_TYPE"]?> </td>
           <td class="text-center"> <?php echo $row["CREDIT"] ?> </td>
           <td class="text-center"> <?php echo $row["SEMESTER"] ?> </td>
         
@@ -196,6 +199,7 @@ $faculty_details_col = mysqli_fetch_fields($faculty_details);
           <td> <?php echo $row["EMPLOYEE_CODE"] ?> </td>
           <td> <?php echo $row["COURSE_CODE"] ?> </td>
           <td> <?php echo $row["COURSE_NAME"] ?> </td>
+          <td> <?php echo $row["COURSE_TYPE"]?> </td>
           <td class="text-center"> <?php echo $row["CREDIT"] ?> </td>
           <td class="text-center"> <?php echo $row["SEMESTER"] ?> </td>
         
@@ -214,6 +218,7 @@ $faculty_details_col = mysqli_fetch_fields($faculty_details);
         <td> <?php echo $row["EMPLOYEE_CODE"] ?> </td>
         <td> <?php echo $row["COURSE_CODE"] ?> </td>
         <td> <?php echo $row["COURSE_NAME"] ?> </td>
+        <td> <?php echo $row["COURSE_TYPE"]?> </td>
         <td class="text-center"> <?php echo $row["CREDIT"] ?> </td>
         <td class="text-center"> <?php echo $row["SEMESTER"] ?> </td>
       
@@ -231,6 +236,7 @@ $faculty_details_col = mysqli_fetch_fields($faculty_details);
           <td> <?php echo $row["EMPLOYEE_CODE"] ?> </td>
           <td> <?php echo $row["COURSE_CODE"] ?> </td>
           <td> <?php echo $row["COURSE_NAME"] ?> </td>
+          <td> <?php echo $row["COURSE_TYPE"]?> </td>
           <td class="text-center"> <?php echo $row["CREDIT"] ?> </td>
           <td class="text-center"> <?php echo $row["SEMESTER"] ?> </td>
         
